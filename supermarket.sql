@@ -317,4 +317,23 @@ create table supplieracc
    primary key (supp_id)
 );
 
+INSERT INTO memberacc VALUES(1,'sgz','bangbang','15201752137','bangbang@fudan.cn','2017-4-1',0,true,'');
+INSERT INTO memberacc VALUES(2,'wps','peigong','15333333333','peigong@fudan.cn','2017-4-2',0,true,'');
+INSERT INTO memberacc VALUES(3,'zcg','guangguang','13333333333','guanguang@fudan.cn','2017-4-3',0,true,'');
+INSERT INTO memberacc VALUES(4,'zyn','xiaozheng','14444444444','xiaozhengyining@fudan.cn','2017-4-4',0,true,'');
+
+insert into staffacc values(15307130021,'wps',1,'2010-1-1',true,'');
+insert into staffacc values(15307130224,'sgz',1,'2011-1-1',true,'');
+insert into staffacc values(15307130096,'zcg',1,'2012-1-1',true,'');
+
+/*
+insert into item values (10001,'张曾光的亲笔书法','很大','古董','张曾光',88888.88,'2012-2-12','2020-2-12','');
+insert into item values (10002,’蛇果阵的山地自行车’,’非常大’,’越野’,’急速’,28888.88,’2017-2-12’,’2020-2-12’,’’);
+insert into item values (10003,’小郑的妹子’,’不可描述’,’妹子’,’小郑’,999999.99,’1996-2-12’,’2020-2-12’,’’);
+insert into item values (10004,’mac电脑’,’挺大’,’电子产品’,’苹果’,120000.00,’2017-2-12’,’2020-2-12’,’’);
+insert into item values (10005,’奥利奥饼干’,’小’,’食物’,’oreo’,15.88,’2017-4-12’,’2020-2-12’,’’);
+insert into item values (10006,’数据库系统教程’,’小’,’书籍’,’高等教育出版社’,18.88,’2012-2-12’,’2020-2-12’,’’);
+insert into item values (10007,’C+’,’较小’,’饮料’,’怡泉’,4.00,’2017-4-12’,’2020-2-12’,’’);
+*/
+
 

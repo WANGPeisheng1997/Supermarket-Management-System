@@ -9,9 +9,6 @@ time = str(datetime.now())
 app = Flask(__name__)
 app.secret_key = 'asfasfasfasqwerqwr'
 
-
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
