@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 
 from datetime import datetime
 
+from DatabaseConnection import check_if_account_exists
+
 time = str(datetime.now())
 
 app = Flask(__name__)
@@ -40,9 +42,8 @@ def staff_login():
     username = request.form['username']
     password = request.form['password']
 
-    if username == 'admin' and password == 'password':
+    if check_if_account_exists(username, password):
         return redirect(url_for('staffone', username=username))
-
 
     flash("The account does not exist, please retype it!")
     return redirect('/staff_login')
