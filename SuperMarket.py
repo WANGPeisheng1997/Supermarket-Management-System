@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 
 from datetime import datetime
 
-from DatabaseConnection import check_if_account_exists
+from DatabaseConnection import check_if_account_exists, register
 
 time = str(datetime.now())
 
@@ -83,6 +83,7 @@ def staffone(username=None):
 
 @app.route('/registeration')
 def registeration():
+
     return render_template('registeration.html')
 
 
