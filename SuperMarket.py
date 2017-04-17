@@ -1,13 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-import pymysql
 from datetime import datetime
 
-from DatabaseConnection import check_if_account_exists, register_customer
+from flask import Flask, render_template, request, redirect, url_for, flash
+
+import DatabaseConnection
 
 time = str(datetime.now())
 
 app = Flask(__name__)
 app.secret_key = 'asfasfasfasqwerqwr'
+
 
 @app.route('/')
 def index():
@@ -41,9 +42,7 @@ def staff_login():
     username = request.form['username']
     password = request.form['password']
 
-
-
-    if check_if_account_exists(username, password):
+    if DatabaseConnection.exec_staff_login(username, password):
         return redirect(url_for('staffone', username=username))
 
     flash("The account does not exist, please retype it!")
@@ -60,7 +59,7 @@ def customer_login():
     username = request.form['username']
     password = request.form['password']
 
-    if username == 'customer' and password == 'password':
+    if DatabaseConnection.exec_customer_login(username, password):
         return redirect(url_for('customer', username=username))
 
     flash("The account does not exist, check it again.")
@@ -69,12 +68,14 @@ def customer_login():
 
 @app.route('/customer/<username>')
 def customer(username=None):
-    return render_template("customer.html", username=username)
+    item = DatabaseConnection.exec_show_items()
+    print item
+    return render_template("customer.html", username=username, item=item)
 
 
 @app.route('/supplier/<username>')
 def supplier(username=None):
-    return render_template("supplier.html", username=username,)
+    return render_template("supplier.html", username=username, )
 
 
 @app.route('/staffone/<username>')
@@ -84,22 +85,23 @@ def staffone(username=None):
 
 @app.route('/registeration', methods=['GET'])
 def registeration_form():
-   return render_template('registeration.html')
-
+    return render_template('registeration.html')
 
 
 @app.route('/registeration', methods=['POST'])
 def registeration():
-
     username = request.form['username']
     password = request.form['password']
-    # retype_password = request.form['retype_password']
+    retype_password = request.form['retype_password']
     email = request.form['email']
 
+    if retype_password != password:
+        flash("The password is not consistent!")
+        return redirect('/registeration')
 
-    register_customer(username, password, email)
+    DatabaseConnection.exec_register_customer(username, password, email)
     return redirect('/customer_login')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
