@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-
+import pymysql
 from datetime import datetime
 
-from DatabaseConnection import check_if_account_exists, register
+from DatabaseConnection import check_if_account_exists, register_customer
 
 time = str(datetime.now())
 
 app = Flask(__name__)
 app.secret_key = 'asfasfasfasqwerqwr'
+
+
 
 
 @app.route('/')
@@ -41,6 +43,8 @@ def staff_login_form():
 def staff_login():
     username = request.form['username']
     password = request.form['password']
+
+
 
     if check_if_account_exists(username, password):
         return redirect(url_for('staffone', username=username))
@@ -81,11 +85,24 @@ def staffone(username=None):
     return render_template("staffone.html", username=username, time=time)
 
 
-@app.route('/registeration')
+@app.route('/registeration', methods=['GET'])
+def registeration_form():
+   return render_template('registeration.html')
+
+
+
+@app.route('/registeration', methods=['POST'])
 def registeration():
 
-    return render_template('registeration.html')
+    username = request.form['username']
+    password = request.form['password']
+    # retype_password = request.form['retype_password']
+    email = request.form['email']
+
+
+    register_customer(username, password, email)
+    return redirect('/customer_login')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

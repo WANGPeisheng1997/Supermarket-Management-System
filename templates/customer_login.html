@@ -19,7 +19,7 @@
 
 <div class="container">
     <div class="row text-center ">
-        <div class="col-md-12" >
+        <div class="col-md-12">
             <br/><br/>
             <h2 style="color:#5cb85c; font-size:500%">Let's go shopping!</h2>
 
@@ -27,15 +27,15 @@
         </div>
 
         <div class="fa-lg" style="color:red">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
         </div>
 
     </div>
@@ -70,9 +70,10 @@
                         <p>
                             <button type="submit">Login Now</button>
                         </p>
-                        <hr/>
-                        Not register ? <a href="/registeration">click here </a>
                     </form>
+                    <hr/>
+                    Not register ? <a href="/registeration">click here </a>
+
                 </div>
 
             </div>

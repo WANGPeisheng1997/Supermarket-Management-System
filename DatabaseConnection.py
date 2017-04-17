@@ -1,34 +1,68 @@
 import pymysql
 
-def check_if_account_exists(username,password):
-    conn = pymysql.connect(host='10.221.137.167',
-                           user='root',
-                           db='supermarket',
-                           passwd='a887400',
-                           port=3306,
-                           charset="utf8"
-                           )
+class connection(object):
+    def connect_database(self):
+        self.connection = pymysql.connect(host='10.221.137.167',
+                                     user='root',
+                                     db='supermarket',
+                                     passwd='a887400',
+                                     port=3306,
+                                     charset="utf8"
+                                     )
+        self.cursor = self.connection.cursor()
 
-    cursor = conn.cursor()
+    def disconnect_database(self):
+        self.cursor.close()
+        self.connection.close()
+
+    def exec_query(self,sql):
+        self.cursor.execute(sql)
+
+    def exec_update(self,sql):
+        self.cursor.execute(sql)
+        self.connection.commit()
+
+    def fetch_cursor(self):
+        return self.cursor.fetchall()
+
+
+database = connection()
+
+def exec_staff_login(username,password):
+    database.connect_database()
     sql = "SELECT * FROM staffacc WHERE empl_id='%s' AND staff_psw='%s'"
     data = (username, password)
-    cursor.execute(sql % data)
-    values = cursor.fetchall()
+    database.exec_query(sql % data)
+    values = database.fetch_cursor()
+    database.disconnect_database()
     if values:
         return True
     else:
         return False
 
-def register(username,password,email):
-    conn = pymysql.connect(host='10.221.137.167',
-                           user='root',
-                           db='supermarket',
-                           passwd='a887400',
-                           port=3306,
-                           charset="utf8"
-                           )
+def exec_customer_login(username,password):
+    database.connect_database()
+    sql = "SELECT * FROM memberacc WHERE mem_id='%s' AND mem_psw='%s'"
+    data = (username, password)
+    database.exec_query(sql % data)
+    values = database.fetch_cursor()
+    database.disconnect_database()
+    if values:
+        return True
+    else:
+        return False
 
-    cursor = conn.cursor()
-    sql = "INSERT INTO memberacc VALUES(1,'%s','%','123213123','%s','2018-2-8',0,true,'')"
+def exec_register_customer(username,password,email):
+    database.connect_database()
+    sql = "INSERT INTO memberacc VALUES(1,'%s','%s','123213123','%s','2018-2-8',0,true,' ')"
     data = (username, password,email)
-    cursor.execute(sql % data)
+    database.exec_update(sql % data)
+    database.disconnect_database()
+
+def exec_show_items():
+    database.connect_database()
+    sql = "SELECT * FROM item"
+    database.exec_query(sql)
+    values = database.fetch_cursor()
+    database.disconnect_database()
+    return values
