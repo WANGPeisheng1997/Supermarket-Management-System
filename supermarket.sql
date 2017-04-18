@@ -51,9 +51,9 @@ drop table if exists supplieracc;
 /*==============================================================*/
 create table complaint
 (
-   comp_id              bigint not null,
+   comp_id              bigint not null AUTO_INCREMENT,
    mem_id               bigint,
-   discount_type        numeric(1,0) not null,
+   comp_type            numeric(1,0) not null,
    comp_ctnt            text not null,
    comp_time            datetime not null,
    primary key (comp_id)
@@ -64,9 +64,9 @@ create table complaint
 /*==============================================================*/
 create table complaint_type
 (
-   discount_type        numeric(1,0) not null,
-   discount_type_name   text not null,
-   primary key (discount_type)
+   comp_type        numeric(1,0) not null,
+   comp_type_name   text not null,
+   primary key (comp_type)
 );
 
 /*==============================================================*/
@@ -155,7 +155,7 @@ create table item
 /*==============================================================*/
 create table memberacc
 (
-   mem_id               bigint not null,
+   mem_id               bigint not null AUTO_INCREMENT,
    mem_name             text not null,
    mem_psw              text not null,
    mem_pnum             text,
