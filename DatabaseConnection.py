@@ -17,7 +17,7 @@ class Connection(object):
         #                                   )
         self.connection = pymysql.connect(host=cloud_host,
                                           user='root',
-                                          db='test',
+                                          db='test1',
                                           passwd='dbpj1008',
                                           port=4040,
                                           charset="utf8"
@@ -84,7 +84,7 @@ def exec_register_customer(username, password, email):
         database.disconnect_database()
         return False
     else:
-        time = str(datetime.now()) # insert a new customer
+        time = str(datetime.now())  # insert a new customer
         sql = "INSERT INTO memberacc(mem_name, mem_psw, mem_mail, mem_rtime, mem_point, mem_avai) VALUES('%s','%s','%s','%s',0,true)"
         data = (username, password, email, time)
         database.exec_update(sql % data)
@@ -98,6 +98,7 @@ def exec_show_items():
     values = database.fetch_cursor()
     database.disconnect_database()
     return values
+
 
 def exec_add_new_complain_to_complain_list(mem_id, comp_type, comp_content):
     database.connect_database()
