@@ -119,6 +119,31 @@ def exec_show_items():
     database.disconnect_database()
     return values
 
+def exec_add_a_new_purchase(supplier_id, staff_id, purchase_note):
+    database.connect_database()
+    time = str(datetime.now())
+    # add a new purchase
+    sql = "INSERT INTO purchase(supp_id, staff_id, purchase_time, purchase_note) VALUES('%d','%d','%s','%s')"
+    data = (supplier_id, staff_id, time, purchase_note)
+    database.exec_update(sql % data)
+    database.disconnect_database()
+
+def exec_show_purchase(supplier_id):
+    database.connect_database()
+    sql = "SELECT * FROM purchase WHERE supp_id='%d'"
+    database.exec_query(sql % supplier_id)
+    purchases = database.fetch_cursor()
+    database.disconnect_database()
+    return purchases
+
+def exec_show_purchase_list(purchase_id):
+    database.connect_database()
+    sql = "SELECT * FROM purchlist WHERE purchase_id='%d'"
+    database.exec_query(sql % purchase_id)
+    purchase_list = database.fetch_cursor()
+    database.disconnect_database()
+    return purchase_list
+
 def exec_change_the_information_supplier(id, password, contact, phone, email, address, note):
     database.connect_database()
     sql = "UPDATE supplieracc SET supp_psw ='%s',supp_contact='%s',supp_phone='%s',supp_mail='%s',supp_addr='%s',supp_note='%s' WHERE supp_id='%d'"
@@ -169,3 +194,5 @@ def exec_add_new_shopping_list(shop_id, order_list):
         data = (item_id, shop_id, item_price, item_quantity)
         database.exec_update(sql % data)
     database.disconnect_database()
+
+

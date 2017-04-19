@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/4/19 23:29:03                           */
+/* Created on:     2017/4/20 1:01:46                            */
 /*==============================================================*/
 
 
@@ -105,12 +105,12 @@ create table memberacc
 /*==============================================================*/
 create table purchase
 (
-   shop_id              int not null,
-   supp_id              int,
-   staff_id             int,
-   shop_time            datetime not null,
-   shop_note            text,
-   primary key (shop_id)
+   purchase_id          int not null auto_increment,
+   supp_id              int not null,
+   staff_id             int not null,
+   purchase_time        datetime not null,
+   purchase_note        text,
+   primary key (purchase_id)
 );
 
 /*==============================================================*/
@@ -119,10 +119,10 @@ create table purchase
 create table purchlist
 (
    item_id              int not null,
-   shop_id              int not null,
-   purch_unitprice      float(8,2) not null,
-   purch_unitnum        int not null,
-   primary key (item_id, shop_id)
+   purchase_id          int not null,
+   purchase_price       float(8,2) not null,
+   purchase_quant       int not null,
+   primary key (item_id, purchase_id)
 );
 
 /*==============================================================*/
@@ -133,7 +133,7 @@ create table shoplist
    item_id              int not null,
    shop_id              int not null,
    item_price           float(8,2) not null,
-   item_count           int not null,
+   item_quant           int not null,
    primary key (item_id, shop_id)
 );
 
@@ -196,7 +196,7 @@ create table storage
 (
    stor_id              int not null,
    stor_desc            text not null,
-   empl_id              bigint,
+   staff_id             int,
    primary key (stor_id)
 );
 
@@ -227,6 +227,3 @@ create table supplieracc
    supp_note            text,
    primary key (supp_id)
 );
-
-
-
