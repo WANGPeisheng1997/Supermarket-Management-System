@@ -1,11 +1,11 @@
 // Eric Meyer reset
 // --------------------------------------------------
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed,  figure, figcaption, footer, header, hgroup,  menu, nav, output, ruby, section, summary, time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	vertical-align: baseline;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
 }
 
 main {
@@ -13,24 +13,28 @@ main {
 }
 
 body {
-	line-height: 1;
+  line-height: 1;
 }
+
 ol,
 ul {
-	list-style: none;
+  list-style: none;
 }
+
 blockquote,
 q {
-	quotes: none;
+  quotes: none;
 }
+
 blockquote:before,
 blockquote:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
+
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 // Normalize.css
@@ -41,10 +45,11 @@ table {
 // -------------------------
 // Source: http://github.com/necolas/normalize.css
 html {
-	font-size: 100%;
+  font-size: 100%;
   -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
+
 // Focus states
 a:focus {
   outline: none;
@@ -81,7 +86,7 @@ video {
 // -------------------------
 // Source: http://github.com/necolas/normalize.css
 audio:not([controls]) {
-    display: none;
+  display: none;
 }
 
 // Prevents sub and sup affecting line-height in all browsers
@@ -93,9 +98,11 @@ sup {
   position: relative;
   vertical-align: baseline;
 }
+
 sup {
   top: -.5em;
 }
+
 sub {
   bottom: -.25em;
 }
@@ -104,8 +111,8 @@ sub {
 // -------------------------
 // Source: http://github.com/necolas/normalize.css
 img {
-    border: 0;
-    -ms-interpolation-mode: bicubic;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
 }
 
 // Forms
@@ -122,16 +129,19 @@ textarea {
   vertical-align: baseline;
   *vertical-align: middle;
 }
+
 button,
 input {
   line-height: normal; // FF3/4 have !important on line-height in UA stylesheet
   *overflow: visible; // Inner spacing ie IE6/7
 }
+
 button::-moz-focus-inner,
 input::-moz-focus-inner { // Inner padding and border oddities in FF3/4
   border: 0;
   padding: 0;
 }
+
 button,
 input[type="button"],
 input[type="reset"],
@@ -139,15 +149,18 @@ input[type="submit"] {
   cursor: pointer; // Cursors on all buttons applied consistently
   -webkit-appearance: button; // Style clicable inputs in iOS
 }
+
 input[type="search"] { // Appearance in Safari/Chrome
   -webkit-appearance: textfield;
   // -webkit-box-sizing: content-box;
   //    -moz-box-sizing: content-box;
   //         box-sizing: content-box;
 }
+
 input[type="search"]:-webkit-search-decoration {
   -webkit-appearance: none; // Inner-padding issues in Chrome OSX, Safari 5
 }
+
 textarea {
   overflow: auto; // Remove vertical scrollbar in IE6-9
   vertical-align: top; // Readability and alignment cross-browser
