@@ -205,7 +205,7 @@ create table storage
 /*==============================================================*/
 create table storelist
 (
-   item_id              bigint not null,
+   item_id              int not null,
    stor_id              int not null,
    number               int not null,
    primary key (item_id, stor_id)
