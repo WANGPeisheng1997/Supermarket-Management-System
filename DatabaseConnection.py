@@ -144,6 +144,30 @@ def exec_show_purchase_list(purchase_id):
     database.disconnect_database()
     return purchase_list
 
+def exec_show_storage_imformation(store_id):
+    database.connect_database()
+    sql = "SELECT * FROM storage WHERE store_id='%d'"
+    database.exec_query(sql % store_id)
+    storage = database.fetch_cursor()
+    database.disconnect_database()
+    return storage
+
+def exec_show_store_list(store_id):
+    database.connect_database()
+    sql = "SELECT item_id, number FROM storelist WHERE store_id='%d'"
+    database.exec_query(sql % store_id)
+    storage = database.fetch_cursor()
+    database.disconnect_database()
+    return storage
+
+def exec_find_item_in_storage(item_id):
+    database.connect_database()
+    sql = "SELECT * number FROM storelist WHERE item_id='%d'"
+    database.exec_query(sql % item_id)
+    storage = database.fetch_cursor()
+    database.disconnect_database()
+    return storage
+
 def exec_change_the_information_supplier(id, password, contact, phone, email, address, note):
     database.connect_database()
     sql = "UPDATE supplieracc SET supp_psw ='%s',supp_contact='%s',supp_phone='%s',supp_mail='%s',supp_addr='%s',supp_note='%s' WHERE supp_id='%d'"
