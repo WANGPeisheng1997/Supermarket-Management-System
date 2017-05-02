@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/4/20 1:01:46                            */
+/* Created on:     2017/4/19 23:29:03                           */
 /*==============================================================*/
 
 
@@ -100,17 +100,19 @@ create table memberacc
    primary key (mem_id)
 );
 
+
+
 /*==============================================================*/
 /* Table: purchase                                              */
 /*==============================================================*/
 create table purchase
 (
-   purchase_id          int not null auto_increment,
-   supp_id              int not null,
-   staff_id             int not null,
-   purchase_time        datetime not null,
-   purchase_note        text,
-   primary key (purchase_id)
+   shop_id              int not null,
+   supp_id              int,
+   staff_id             int,
+   shop_time            datetime not null,
+   shop_note            text,
+   primary key (shop_id)
 );
 
 /*==============================================================*/
@@ -119,10 +121,10 @@ create table purchase
 create table purchlist
 (
    item_id              int not null,
-   purchase_id          int not null,
-   purchase_price       float(8,2) not null,
-   purchase_quant       int not null,
-   primary key (item_id, purchase_id)
+   shop_id              int not null,
+   purch_unitprice      float(8,2) not null,
+   purch_unitnum        int not null,
+   primary key (item_id, shop_id)
 );
 
 /*==============================================================*/
@@ -132,8 +134,8 @@ create table shoplist
 (
    item_id              int not null,
    shop_id              int not null,
-   item_price           float(8,2) not null,
-   item_quant           int not null,
+   item_unitprice       float(8,2) not null,
+   item_unitnum         int not null,
    primary key (item_id, shop_id)
 );
 
@@ -153,10 +155,11 @@ create table shopping
 /*==============================================================*/
 /* Table: staff                                                 */
 /*==============================================================*/
-create table staff
+create table staffacc
 (
    staff_id             int not null auto_increment,
    dept_id              numeric(2,0) not null,
+   staff_psw            text not null,
    staff_name           text not null,
    staff_idcard         text not null,
    staff_phone          text,
@@ -164,19 +167,18 @@ create table staff
    staff_pos            text not null,
    staff_hiredate       date not null,
    staff_note           text,
+   staff_salary         int
    primary key (staff_id)
 );
 
 /*==============================================================*/
-/* Table: staffacc                                              */
+/* Table: staff_rank                                             */
 /*==============================================================*/
-create table staffacc
+create table staff_rank
 (
-   staff_id             int not null,
-   staff_psw            text not null,
-   staff_type           int not null,
-   staff_note           text,
-   primary key (staff_id)
+  staff_id int not null auto_increment,
+  staff_type int not null,
+  PRIMARY KEY (staff_id)
 );
 
 /*==============================================================*/
@@ -196,7 +198,7 @@ create table storage
 (
    stor_id              int not null,
    stor_desc            text not null,
-   staff_id             int,
+   empl_id              bigint,
    primary key (stor_id)
 );
 
@@ -205,7 +207,7 @@ create table storage
 /*==============================================================*/
 create table storelist
 (
-   item_id              int not null,
+   item_id              bigint not null,
    stor_id              int not null,
    number               int not null,
    primary key (item_id, stor_id)
@@ -227,3 +229,52 @@ create table supplieracc
    supp_note            text,
    primary key (supp_id)
 );
+
+alter table complaint add constraint FK_is_of foreign key (comp_type)
+      references complaint_type (comp_type) on delete restrict on update restrict;
+
+alter table complaint add constraint FK_makes foreign key (mem_id)
+      references memberacc (mem_id) on delete restrict on update restrict;
+
+alter table purchase add constraint FK_Reference_22 foreign key (supp_id)
+      references supplieracc (supp_id) on delete restrict on update restrict;
+
+alter table purchase add constraint FK_Reference_23 foreign key (staff_id)
+      references staff (staff_id) on delete restrict on update restrict;
+
+alter table purchlist add constraint FK_Reference_24 foreign key (shop_id)
+      references purchase (shop_id) on delete restrict on update restrict;
+
+alter table purchlist add constraint FK_involves foreign key (item_id)
+      references item (item_id) on delete restrict on update restrict;
+
+alter table shoplist add constraint FK_involves foreign key (item_id)
+      references item (item_id) on delete restrict on update restrict;
+
+alter table shoplist add constraint FK_involves foreign key (shop_id)
+      references shopping (shop_id) on delete restrict on update restrict;
+
+alter table shopping add constraint FK_is_responsible_for foreign key (staff_id)
+      references staff (staff_id) on delete restrict on update restrict;
+
+alter table shopping add constraint FK_partakes_in foreign key (mem_id)
+      references memberacc (mem_id) on delete restrict on update restrict;
+
+alter table staff add constraint FK_belongs_to foreign key (dept_id)
+      references department (dept_id) on delete restrict on update restrict;
+
+alter table staffacc add constraint FK_is_of foreign key (staff_type)
+      references staffacc_authtype (staff_type) on delete restrict on update restrict;
+
+alter table staffacc add constraint FK_posssesses foreign key (staff_id)
+      references staff (staff_id) on delete restrict on update restrict;
+
+alter table storage add constraint FK_Reference_25 foreign key (empl_id)
+      references staff (staff_id) on delete restrict on update restrict;
+
+alter table storelist add constraint FK_is_stored_in foreign key (item_id)
+      references item (item_id) on delete restrict on update restrict;
+
+alter table storelist add constraint FK_is_stored_in foreign key (stor_id)
+      references storage (stor_id) on delete restrict on update restrict;
+
